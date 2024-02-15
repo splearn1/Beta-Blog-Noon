@@ -1,39 +1,27 @@
 class BlogsController < ApplicationController
+  before_action :authenticate_request
+
   def index
     blogs = Blog.all
 
-    render json: blogs
+    render json: BlogBlueprint.render(blogs, view: :normal)
   end
 
-  def show
-    blog = Blog.find(params[:id])
+  def create 
+    blog = Blog.new(blog_params)
 
-    render json: blog
+    
+    if blog.save
+      render json: BlogBlueprint.render(blog, view: :normal), status: :created
+    else
+      render json: blog.errors, status: :unprocessable_entity
+    end
   end
 
-  def create
-    blog = Blog.create(blog_params)
+  private 
 
-    render json: blog
-  end
-
-  def update
-    blog = Blog.find(params[:id])
-    blog.update(blog_params)
-
-    render json: blog
-  end
-
-  def destroy
-    blog = Blog.find(params[:id])
-    blog.destroy
-
-    render json: blog
-  end
-
-  private
-
-  def blog_params
+  def blog_params 
     params.permit(:title, :content, :user_id)
   end
+
 end
