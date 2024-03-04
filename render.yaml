@@ -1,10 +1,10 @@
-databases: 
+databases:
     - name: betablognoon
     databaseName: betablognoon
     user: betablognoon
     plan: free
 
-services: 
+services:
     - type: web
     name: betablognoon
     runtime: ruby
