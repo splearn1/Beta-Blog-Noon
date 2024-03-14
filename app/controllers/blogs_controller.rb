@@ -9,6 +9,7 @@ class BlogsController < ApplicationController
 
   def create 
     blog = @current_user.blogs.new(blog_params)
+    debugger
 
     
     if blog.save
@@ -21,7 +22,7 @@ class BlogsController < ApplicationController
   private 
 
   def blog_params 
-    params.permit(:title, :content, :user_id)
+    params.permit(:title, :content, :user_id, :cover_image)
   end
 
 end
