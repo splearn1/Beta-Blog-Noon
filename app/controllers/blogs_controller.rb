@@ -3,15 +3,12 @@ class BlogsController < ApplicationController
 
   def index
     blogs = Blog.all
-
     render json: BlogBlueprint.render(blogs, view: :normal)
   end
 
   def create 
     blog = @current_user.blogs.new(blog_params)
-    debugger
 
-    
     if blog.save
       render json: BlogBlueprint.render(blog, view: :normal), status: :created
     else
