@@ -10,6 +10,8 @@ class Blog < ApplicationRecord
 
   has_one_attached :cover_image
 
+  has_many :likes, as: :likeable
+
   def cover_image_url 
     rails_blob_url(self.cover_image, only_path: false) if self.cover_image.attached?
   end
